@@ -8,7 +8,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        format_sql: true
+            format_sql: true
     generate-ddl: false
     hibernate:
       ddl-auto: create-drop
@@ -17,6 +17,5 @@ spring:
     username: root
     password: qwer!@34
     initialization-mode: always
-
 
 

@@ -4,12 +4,16 @@ import com.fastcampus.bookmanager.domain.Address;
 import com.fastcampus.bookmanager.domain.Gender;
 import com.fastcampus.bookmanager.domain.User;
 import com.fastcampus.bookmanager.domain.UserHistory;
+import org.assertj.core.api.AbstractSoftAssertions;
+import org.assertj.core.api.AssertionsForInterfaceTypes;
 import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -220,39 +224,48 @@ class UserRepositoryTest {
     }
 
 
-//    @Test
-//    void embedTest(){
-//        userRepository.findAll().forEach(System.out::println);
-//
-//        User user = new User();
-//        user.setName("Kei");
-//        user.setHomeAddress(new Address("서울시","강남구","강남대로 364 미왕빌딩","06242"));
-//        user.setCompanyAddress(new Address("서울시", "성동구","성수이로 113 제강빌딩" , "04794"));
-//
-//        userRepository.save(user);
-//
-//        User user1 = new User();
-//        user1.setName("sujung");
-//        user1.setHomeAddress(null);
-//        user1.setCompanyAddress(null);
-//
-//        userRepository.save(user1);
-//
-//        User user2 = new User();
-//        user2.setName("chayoung");
-//        user2.setHomeAddress(new Address());
-//        user2.setCompanyAddress(new Address()) ;
-//
-//        userRepository.save(user2);
-//
+    @Test
+    @Transactional
+    void embedTest(){
+        userRepository.findAll().forEach(System.out::println);
+
+        User user = new User();
+        user.setName("Kei");
+        user.setHomeAddress(new Address("서울시","강남구","강남대로 364 미왕빌딩","06242"));
+        user.setCompanyAddress(new Address("서울시", "성동구","성수이로 113 제강빌딩" , "04794"));
+
+        userRepository.save(user);
+
+        User user1 = new User();
+        user1.setName("sujung");
+        user1.setHomeAddress(null);
+        user1.setCompanyAddress(null);
+
+        userRepository.save(user1);
+
+        User user2 = new User();
+        user2.setName("chayoung");
+        user2.setHomeAddress(new Address());
+        user2.setCompanyAddress(new Address()) ;
+
+        userRepository.save(user2);
+
 //        entityManager.clear();
-//
-//        userRepository.findAll().forEach(System.out::println);
-//        userHistoryRepository.findAll().forEach(System.out::println );
-//
-//        userRepository.findAllRawRecord().forEach(a-> System.out.println(a.values()));
-//
-//    }
+
+        userRepository.findAll().forEach(System.out::println);
+        userHistoryRepository.findAll().forEach(System.out::println );
+
+        userRepository.findAllRawRecord().forEach(a-> System.out.println(a.values()));
+
+
+        Assertions.assertAll(
+                ()-> org.assertj.core.api.Assertions.assertThat(userRepository.findById(7L).get().getHomeAddress()).isNull(),
+                ()-> org.assertj.core.api.Assertions.assertThat(userRepository.findById(8L).get().getHomeAddress()).isInstanceOf(Address.class)
+
+        );
+
+
+    }
 
 
     @Test

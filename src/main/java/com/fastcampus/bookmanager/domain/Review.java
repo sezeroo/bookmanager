@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -24,13 +26,17 @@ public class Review extends BaseEntity {
 
     private float score;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Book book;
 
-
+    @OneToMany (fetch = FetchType.LAZY)//default 가 Lazy 패치임.
+    @JoinColumn(name = "review_id")
+    List<Comment> comments ;
 
 
 

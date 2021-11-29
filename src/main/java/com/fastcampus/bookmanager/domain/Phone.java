@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
 //@EntityListeners(value = PhoneEntityListener.class)
@@ -28,6 +29,7 @@ public class Phone extends BaseEntity {
     private Manufacturer manufacturer;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @ToString.Exclude
     private User user;
 
 

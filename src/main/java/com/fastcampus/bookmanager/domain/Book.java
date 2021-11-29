@@ -45,14 +45,12 @@ public class Book extends BaseEntity {
     private List<Review> reviews = new ArrayList<>();
 
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
-    @ToString.Exclude
     private Publisher publisher;
 
-//    //convert 사용을 위한 어노테이션
-//    @Convert(converter = BookStatusConverter.class)
-//    @Nullable
-//    private BookStatus Status;
-
+    //convert 사용을 위한 어노테이션
+    @Convert(converter = BookStatusConverter.class)
+    @Nullable
+    private BookStatus Status;
 
 //    @ManyToMany
     @OneToMany
@@ -61,8 +59,6 @@ public class Book extends BaseEntity {
     private List<BookAndAuthor> bookAndAuthors = new ArrayList<>();
 
     private boolean deleted;
-
-
 
     public void addBookAndAuthors(BookAndAuthor... bookAndAuthor){
 

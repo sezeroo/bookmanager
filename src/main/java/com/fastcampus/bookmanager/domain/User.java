@@ -61,13 +61,11 @@ public class User extends BaseEntity {
 
     @OneToMany
     @JoinColumn(name = "user_id")
-    @ToString.Exclude
+    @ToString.Exclude //ToString 에서 제외합니다.
     private List<Review> reviews = new ArrayList<>();
 
     @OneToMany
     @JoinColumn(name = "user_id")
+    @ToString.Exclude
     private List<Phone> phones = new ArrayList<>();
-
-
-
 }
